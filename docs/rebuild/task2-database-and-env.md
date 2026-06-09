@@ -174,6 +174,13 @@ drizzle/
 
 Do not rely only on TypeScript schema. The repo should contain the generated SQL migration.
 
+After generating the migration, inspect the generated SQL and confirm it includes:
+
+- The `events`, `date_suggestions`, and `votes` tables.
+- Required check constraints.
+- Required indexes.
+- The unique constraint on `(suggestion_id, voter_name)`.
+
 ## `src/lib/env.ts`
 
 Create a small helper that validates required environment variables.
@@ -183,6 +190,8 @@ Rules:
 - `NEXT_PUBLIC_SITE_URL` may be public.
 - `DATABASE_URL`, `ADMIN_PASSWORD`, and `ADMIN_SESSION_SECRET` are server-only.
 - Throw a clear error if a required server variable is missing when server code asks for it.
+- Do not validate `DATABASE_URL`, `ADMIN_PASSWORD`, or `ADMIN_SESSION_SECRET` at module import time in app code.
+- Use lazy helper functions so `npm run build` can pass without runtime secrets unless code actually executes a database/admin path.
 
 ## `src/db/index.ts`
 
@@ -194,8 +203,10 @@ Requirements:
 - Use `postgres` package.
 - Use `drizzle-orm/postgres-js`.
 - Use `DATABASE_URL` from the env helper.
-- Export `db` or `getDb()`.
+- Export `getDb()`.
+- Initialize the `postgres`/Drizzle client lazily inside `getDb()`, not at module import time.
 - Do not import this file from client components.
+- Do not require `DATABASE_URL` during `next build` unless a database function is executed.
 
 ## Type alignment
 
@@ -218,6 +229,7 @@ Update `src/lib/types.ts` to match the database shape. Manual types are fine for
 - `.env.example` contains only the required variables above unless another existing variable is truly required.
 - No Supabase package or env var is required by the rebuild code.
 - `src/db/index.ts` imports `server-only`.
+- `src/db/index.ts` exports lazy `getDb()` rather than eagerly constructing the database client.
 - `npm run typecheck` passes.
 - `npm run build` passes without actual env vars unless database code is executed at build time.
 

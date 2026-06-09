@@ -18,6 +18,7 @@ A minimal Next.js App Router project with:
 
 - TypeScript.
 - Tailwind CSS.
+- ESLint using the current flat config / ESLint CLI setup.
 - No Google font build dependency.
 - A simple landing page.
 - A simple create-event placeholder page.
@@ -41,6 +42,30 @@ Remove or replace accidental temporary files if present, especially:
 - `temp_getVoteCount.txt`
 
 ### 2. Keep or create the app structure
+
+This repository may be a clean slate with no existing `package.json`. If so, bootstrap the app foundation in the repository root before creating the app routes.
+
+Create or keep these project-level files:
+
+```text
+package.json
+package-lock.json
+next.config.ts
+tsconfig.json
+eslint.config.mjs
+postcss.config.mjs
+src/
+```
+
+Use the current stable Next.js App Router defaults for:
+
+- TypeScript.
+- Tailwind CSS.
+- ESLint.
+- App Router.
+- `@/*` import alias if the generated config includes it.
+
+Target Node.js 20.9 or newer. Do not create the app in a nested subdirectory.
 
 Use this target structure:
 
@@ -75,13 +100,13 @@ In `package.json`, ensure these scripts exist:
   "dev": "next dev",
   "build": "next build",
   "start": "next start",
-  "lint": "next lint",
+  "lint": "eslint .",
   "typecheck": "tsc --noEmit",
   "check": "npm run lint && npm run typecheck && npm run build"
 }
 ```
 
-If the project uses a newer Next.js setup where `next lint` is unavailable, use the existing working lint command and keep `npm run check` equivalent.
+Use the ESLint CLI, not `next lint`, for a fresh rebuild.
 
 ### 4. Remove Google font dependency
 
@@ -147,6 +172,7 @@ These may be refined later, but keep them simple.
 
 ## Acceptance criteria
 
+- `package.json`, `package-lock.json`, `tsconfig.json`, `next.config.ts`, `eslint.config.mjs`, and `postcss.config.mjs` exist.
 - `npm install` succeeds if dependencies changed.
 - `npm run lint` passes or the repo's equivalent lint command passes.
 - `npm run typecheck` passes.
