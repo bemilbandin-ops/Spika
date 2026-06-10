@@ -13,8 +13,11 @@ export default function HomePage() {
           {APP_NAME}
         </h1>
         <p className="max-w-2xl text-lg leading-8 text-stone-700">
-          {APP_DESCRIPTION} This foundation is ready for event data, voting, and
-          admin tools in later tasks.
+          {APP_DESCRIPTION}
+        </p>
+        <p className="max-w-2xl rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          Privacy note: anyone with the event link can view the event details,
+          names, date suggestions, and votes.
         </p>
       </div>
 
@@ -24,12 +27,6 @@ export default function HomePage() {
           className="rounded-md bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700"
         >
           Create an event
-        </Link>
-        <Link
-          href="/event/example-id"
-          className="rounded-md border border-stone-300 px-5 py-3 text-sm font-semibold text-stone-900 transition hover:border-stone-400 hover:bg-white"
-        >
-          View example event
         </Link>
       </div>
     </section>

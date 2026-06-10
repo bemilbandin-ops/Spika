@@ -1,4 +1,4 @@
-export const APP_NAME = "Spika";
+export const APP_NAME = "Group Date Planner";
 
 export const APP_DESCRIPTION =
-  "Plan events by gathering date suggestions and simple guest votes.";
+  "Create a private planning link, share it, collect date suggestions, and gather simple guest votes.";
