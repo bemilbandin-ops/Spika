@@ -9,23 +9,34 @@ type AppShellProps = {
 
 export function AppShell({ children }: AppShellProps) {
   return (
-    <div className="min-h-screen">
-      <header className="border-b border-stone-200 bg-white/70">
-        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-5 py-4">
-          <Link href="/" className="text-lg font-bold text-stone-950">
-            {APP_NAME}
+    <div className="min-h-screen overflow-hidden">
+      <header className="absolute inset-x-0 top-0 z-20">
+        <div className="flex w-full flex-wrap items-start justify-between gap-4 px-5 py-5 sm:px-8 lg:px-12 lg:py-7">
+          <Link href="/" className="brand-mark" aria-label={APP_NAME}>
+            <span>Group</span>
+            <span>Date</span>
+            <span>Planner</span>
           </Link>
-          <nav aria-label="Primary navigation" className="flex items-center gap-4 text-sm font-medium text-stone-700">
-            <Link className="transition hover:text-stone-950" href="/create">
+          <nav
+            aria-label="Primary navigation"
+            className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#d94a1d]"
+          >
+            <Link
+              className="rounded-full border border-[#d94a1d]/40 bg-[#fffaf1]/80 px-3 py-1.5 transition hover:bg-[#d94a1d] hover:text-white"
+              href="/create"
+            >
               Create
             </Link>
-            <Link className="transition hover:text-stone-950" href="/admin">
+            <Link
+              className="rounded-full border border-[#d94a1d]/40 bg-[#fffaf1]/80 px-3 py-1.5 transition hover:bg-[#d94a1d] hover:text-white"
+              href="/admin"
+            >
               Admin
             </Link>
           </nav>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-5xl px-5">{children}</main>
+      <main>{children}</main>
     </div>
   );
 }

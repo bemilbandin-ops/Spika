@@ -24,20 +24,20 @@ export function ShareLink({ path }: ShareLinkProps) {
   }
 
   return (
-    <div className="grid gap-3 rounded-md border border-stone-200 bg-white p-4 shadow-sm">
-      <label className="grid gap-2 text-sm font-medium text-stone-800">
+    <div className="grid gap-3 border-2 border-[#d94a1d] bg-[#fffaf1] p-4 shadow-[0_1rem_3rem_rgba(140,49,16,0.1)] sm:grid-cols-[1fr_auto] sm:items-end">
+      <label className="grid gap-2 text-sm font-bold uppercase tracking-[0.08em] text-[#d94a1d]">
         Share this private event link
         <input
           ref={inputRef}
           readOnly
           defaultValue={path}
-          className="rounded-md border border-stone-300 px-3 py-2 text-stone-900"
+          className="rounded-md border border-[#e9a68a] bg-white px-3 py-2.5 text-base normal-case tracking-normal text-[#2c160e]"
         />
       </label>
       <button
         type="button"
         onClick={copyShareUrl}
-        className="w-fit rounded-md border border-stone-300 px-4 py-2 text-sm font-semibold text-stone-900 transition hover:bg-stone-50"
+        className="w-fit rounded-full border border-[#d94a1d] px-5 py-2 text-sm font-bold text-[#d94a1d] transition hover:bg-[#d94a1d] hover:text-white"
       >
         {copied ? "Copied" : "Copy link"}
       </button>

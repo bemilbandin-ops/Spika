@@ -58,16 +58,16 @@ export default async function EventPage({ params }: EventPageProps) {
   }
 
   return (
-    <section className="grid max-w-3xl gap-8 py-12">
+    <section className="mx-auto grid max-w-4xl gap-6 px-5 pb-12 pt-36 sm:px-8 sm:pt-40 lg:pt-32">
       <div className="grid gap-4">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">
+        <p className="text-sm font-extrabold uppercase tracking-[0.16em] text-[#d94a1d]">
           Private event
         </p>
-        <h1 className="text-3xl font-bold tracking-tight text-stone-950">
+        <h1 className="text-4xl font-extrabold tracking-[-0.045em] text-[#d94a1d]">
           {event.title}
         </h1>
         {event.description ? (
-          <p className="whitespace-pre-wrap text-stone-700">
+          <p className="max-w-2xl whitespace-pre-wrap text-base leading-7 text-[#7d4f3c]">
             {event.description}
           </p>
         ) : null}
@@ -75,13 +75,13 @@ export default async function EventPage({ params }: EventPageProps) {
 
       <ShareLink path={`/event/${event.id}`} />
 
-      <p className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+      <p className="rounded-md border border-[#e9a68a] bg-[#fff2df] px-4 py-3 text-sm font-medium text-[#9c3f1d]">
         Privacy note: anyone with this link can view the event details, names,
         date suggestions, and votes.
       </p>
 
       <div className="grid gap-4">
-        <h2 className="text-2xl font-semibold tracking-tight text-stone-950">
+        <h2 className="text-2xl font-extrabold tracking-[-0.04em] text-[#d94a1d]">
           Date suggestions
         </h2>
 
@@ -94,52 +94,56 @@ export default async function EventPage({ params }: EventPageProps) {
               return (
                 <article
                   key={suggestion.id}
-                  className="grid gap-5 rounded-md border border-stone-200 bg-white p-5 shadow-sm"
+                  className="grid gap-4 border-2 border-[#d94a1d] bg-[#fffaf1] p-4 shadow-[0_1rem_3rem_rgba(140,49,16,0.1)]"
                 >
                   <div className="grid gap-2">
                     <div>
-                      <h3 className="text-xl font-semibold text-stone-950">
+                      <h3 className="text-xl font-extrabold tracking-[-0.035em] text-[#d94a1d]">
                         {formatDate(suggestion.date)}
                       </h3>
                       {time ? (
-                        <p className="text-sm text-stone-600">{time}</p>
+                        <p className="text-sm font-bold uppercase tracking-[0.12em] text-[#9a6851]">
+                          {time}
+                        </p>
                       ) : null}
                     </div>
-                    <p className="text-sm text-stone-600">
+                    <p className="text-sm text-[#7d4f3c]">
                       Suggested by {suggestion.suggested_by}
                     </p>
                   </div>
 
-                  <dl className="grid grid-cols-3 gap-2 text-center">
-                    <div className="rounded-md bg-green-50 px-3 py-2">
-                      <dt className="text-xs font-semibold uppercase text-green-800">
+                  <dl className="grid grid-cols-3 gap-0 overflow-hidden rounded-md border border-[#e9a68a] text-center">
+                    <div className="bg-white px-3 py-2">
+                      <dt className="text-xs font-extrabold uppercase tracking-[0.12em] text-[#d94a1d]">
                         Yes
                       </dt>
-                      <dd className="text-lg font-bold text-green-900">
+                      <dd className="text-xl font-extrabold text-[#d94a1d]">
                         {counts.yes}
                       </dd>
                     </div>
-                    <div className="rounded-md bg-blue-50 px-3 py-2">
-                      <dt className="text-xs font-semibold uppercase text-blue-800">
+                    <div className="border-x border-[#e9a68a] bg-white px-3 py-2">
+                      <dt className="text-xs font-extrabold uppercase tracking-[0.12em] text-[#d94a1d]">
                         Maybe
                       </dt>
-                      <dd className="text-lg font-bold text-blue-900">
+                      <dd className="text-xl font-extrabold text-[#d94a1d]">
                         {counts.maybe}
                       </dd>
                     </div>
-                    <div className="rounded-md bg-red-50 px-3 py-2">
-                      <dt className="text-xs font-semibold uppercase text-red-800">
+                    <div className="bg-white px-3 py-2">
+                      <dt className="text-xs font-extrabold uppercase tracking-[0.12em] text-[#d94a1d]">
                         No
                       </dt>
-                      <dd className="text-lg font-bold text-red-900">
+                      <dd className="text-xl font-extrabold text-[#d94a1d]">
                         {counts.no}
                       </dd>
                     </div>
                   </dl>
 
                   {suggestion.votes.length ? (
-                    <div className="grid gap-2 text-sm text-stone-700">
-                      <h4 className="font-semibold text-stone-900">Votes</h4>
+                    <div className="grid gap-2 text-sm text-[#7d4f3c]">
+                      <h4 className="font-extrabold uppercase tracking-[0.1em] text-[#d94a1d]">
+                        Votes
+                      </h4>
                       <ul className="grid gap-1">
                         {suggestion.votes.map((vote) => (
                           <li key={vote.id}>
@@ -149,7 +153,7 @@ export default async function EventPage({ params }: EventPageProps) {
                       </ul>
                     </div>
                   ) : (
-                    <p className="text-sm text-stone-600">No votes yet.</p>
+                    <p className="text-sm text-[#7d4f3c]">No votes yet.</p>
                   )}
 
                   <VoteForm eventId={event.id} suggestionId={suggestion.id} />
@@ -158,7 +162,7 @@ export default async function EventPage({ params }: EventPageProps) {
             })}
           </div>
         ) : (
-          <p className="rounded-md border border-stone-200 bg-white p-5 text-stone-700 shadow-sm">
+          <p className="border-2 border-[#d94a1d] bg-[#fffaf1] p-5 text-[#7d4f3c] shadow-[0_1rem_3rem_rgba(140,49,16,0.1)]">
             No date suggestions yet. Add the first option below.
           </p>
         )}

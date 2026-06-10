@@ -9,15 +9,15 @@ export const metadata: Metadata = {
 
 export default function CreateEventPage() {
   return (
-    <section className="grid max-w-2xl gap-8 py-12">
+    <section className="mx-auto grid min-h-screen max-w-2xl content-start gap-6 px-5 pb-12 pt-36 sm:px-8 sm:pt-40 lg:pt-32">
       <div className="grid gap-3">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">
+        <p className="text-sm font-extrabold uppercase tracking-[0.16em] text-[#d94a1d]">
           Start planning
         </p>
-        <h1 className="text-3xl font-bold tracking-tight text-stone-950">
+        <h1 className="text-4xl font-extrabold tracking-[-0.045em] text-[#d94a1d]">
           Create an event
         </h1>
-        <p className="text-stone-700">
+        <p className="text-base leading-7 text-[#7d4f3c]">
           Give your event a title and optional details. You will get a private
           link to share with the group.
         </p>

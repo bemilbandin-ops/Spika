@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f5f0;
-  --foreground: #1c1917;
-  --muted: #706a62;
-  --surface: #fffaf2;
-  --border: #e7dfd3;
-  --accent: #2563eb;
+  --background: #fffaf4;
+  --foreground: #2c160e;
+  --muted: #9a6851;
+  --surface: #fffaf1;
+  --border: #e9a68a;
+  --accent: #d94a1d;
+  --accent-dark: #bb3b16;
   --accent-foreground: #ffffff;
 }
 
@@ -21,7 +22,9 @@ html {
 body {
   min-height: 100%;
   margin: 0;
-  background: var(--background);
+  background:
+    radial-gradient(circle at 11% 17%, rgba(255, 246, 229, 0.92), transparent 34rem),
+    linear-gradient(90deg, #fffaf2 0%, #fffdf8 44%, #fff8eb 100%);
   color: var(--foreground);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -38,5 +41,72 @@ textarea {
 }
 
 ::selection {
-  background: #bfdbfe;
+  background: #ffd0bd;
+}
+
+.brand-mark {
+  position: relative;
+  display: grid;
+  width: 9.8rem;
+  min-height: 6.3rem;
+  align-content: center;
+  border: 2px solid var(--accent);
+  padding: 0.9rem 1.05rem;
+  color: var(--accent);
+  font-size: clamp(1.8rem, 2.8vw, 2.45rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.brand-mark::after {
+  position: absolute;
+  right: -2rem;
+  top: 3rem;
+  width: 2rem;
+  height: 3rem;
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  content: "";
+}
+
+.brand-mark span {
+  display: block;
+}
+
+.orange-panel {
+  clip-path: polygon(13% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.orange-glow {
+  box-shadow: inset 0 0 7rem rgba(124, 31, 8, 0.12);
+}
+
+.sketch-button {
+  box-shadow: inset 0 0 2.4rem rgba(124, 31, 8, 0.16);
+}
+
+.focus-orange {
+  outline: none;
+}
+
+.focus-orange:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(217, 74, 29, 0.14);
+}
+
+@media (max-width: 640px) {
+  .brand-mark {
+    width: 7.6rem;
+    min-height: 4.9rem;
+    padding: 0.7rem 0.85rem;
+    font-size: 1.75rem;
+  }
+
+  .brand-mark::after {
+    right: -1.35rem;
+    top: 2.35rem;
+    width: 1.35rem;
+    height: 2.35rem;
+  }
 }

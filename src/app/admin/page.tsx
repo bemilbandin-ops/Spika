@@ -20,20 +20,20 @@ export default async function AdminPage() {
   const events = await listRecentEventsForAdmin();
 
   return (
-    <section className="grid gap-6 py-12">
+    <section className="mx-auto grid max-w-5xl gap-6 px-5 pb-12 pt-36 sm:px-8 sm:pt-40 lg:pt-32">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="grid gap-3">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">
+          <p className="text-sm font-extrabold uppercase tracking-[0.16em] text-[#d94a1d]">
             Admin
           </p>
-          <h1 className="text-3xl font-bold tracking-tight text-stone-950">
+          <h1 className="text-4xl font-extrabold tracking-[-0.045em] text-[#d94a1d]">
             Recent events
           </h1>
         </div>
 
         <form action={logoutAction}>
           <button
-            className="rounded-md border border-stone-300 px-4 py-2 text-sm font-semibold text-stone-800 transition hover:border-stone-400 hover:bg-stone-100"
+            className="rounded-full border border-[#d94a1d] px-5 py-2 text-sm font-bold text-[#d94a1d] transition hover:bg-[#d94a1d] hover:text-white"
             type="submit"
           >
             Log out
@@ -45,18 +45,18 @@ export default async function AdminPage() {
         <div className="grid gap-3">
           {events.map((event) => (
             <article
-              className="grid gap-4 rounded-md border border-stone-200 bg-white p-5 shadow-sm md:grid-cols-[1fr_auto] md:items-center"
+              className="grid gap-4 border-2 border-[#d94a1d] bg-[#fffaf1] p-4 shadow-[0_1rem_3rem_rgba(140,49,16,0.1)] md:grid-cols-[1fr_auto] md:items-center"
               key={event.id}
             >
               <div className="grid gap-2">
-                <h2 className="text-xl font-semibold text-stone-950">
+                <h2 className="text-xl font-extrabold tracking-[-0.035em] text-[#d94a1d]">
                   {event.title}
                 </h2>
-                <p className="text-sm text-stone-600">
+                <p className="text-sm text-[#7d4f3c]">
                   Created {formatCreatedAt(event.created_at)}
                 </p>
                 <Link
-                  className="text-sm font-semibold text-blue-700 transition hover:text-blue-900"
+                  className="text-sm font-extrabold uppercase tracking-[0.1em] text-[#d94a1d] transition hover:text-[#8f2b0f]"
                   href={`/event/${event.id}`}
                 >
                   Open event
@@ -66,7 +66,7 @@ export default async function AdminPage() {
               <form action={deleteEventAction}>
                 <input name="eventId" type="hidden" value={event.id} />
                 <button
-                  className="rounded-md border border-red-200 px-4 py-2 text-sm font-semibold text-red-700 transition hover:border-red-300 hover:bg-red-50"
+                  className="rounded-full border border-[#d94a1d] px-5 py-2 text-sm font-bold text-[#d94a1d] transition hover:bg-[#d94a1d] hover:text-white"
                   type="submit"
                 >
                   Soft-delete
@@ -76,7 +76,7 @@ export default async function AdminPage() {
           ))}
         </div>
       ) : (
-        <p className="rounded-md border border-stone-200 bg-white p-5 text-stone-700 shadow-sm">
+        <p className="border-2 border-[#d94a1d] bg-[#fffaf1] p-5 text-[#7d4f3c] shadow-[0_1rem_3rem_rgba(140,49,16,0.1)]">
           No active events found.
         </p>
       )}

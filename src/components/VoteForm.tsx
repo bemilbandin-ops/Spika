@@ -34,26 +34,26 @@ export function VoteForm({ eventId, suggestionId }: VoteFormProps) {
         </p>
       ) : null}
 
-      <label className="grid gap-2 text-sm font-medium text-stone-800">
+      <label className="grid gap-2 text-sm font-bold uppercase tracking-[0.08em] text-[#d94a1d]">
         Your name
         <input
           type="text"
           name="voterName"
           required
           maxLength={80}
-          className="rounded-md border border-stone-300 px-3 py-2 text-stone-900 outline-none focus:border-blue-500"
+          className="focus-orange rounded-md border border-[#e9a68a] bg-white px-3 py-2 text-base normal-case tracking-normal text-[#2c160e]"
         />
       </label>
 
       <fieldset className="grid gap-2">
-        <legend className="text-sm font-medium text-stone-800">
+        <legend className="text-sm font-bold uppercase tracking-[0.08em] text-[#d94a1d]">
           Your vote
         </legend>
         <div className="flex flex-wrap gap-3">
           {(["yes", "maybe", "no"] as const).map((choice) => (
             <label
               key={choice}
-              className="flex items-center gap-2 rounded-md border border-stone-300 bg-white px-3 py-2 text-sm font-medium capitalize text-stone-800"
+              className="flex items-center gap-2 rounded-full border border-[#e9a68a] bg-white px-4 py-2 text-sm font-bold capitalize text-[#d94a1d]"
             >
               <input type="radio" name="choice" value={choice} required />
               {choice}
@@ -65,7 +65,7 @@ export function VoteForm({ eventId, suggestionId }: VoteFormProps) {
       <button
         type="submit"
         disabled={isPending}
-        className="w-fit rounded-md bg-stone-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:bg-stone-400"
+        className="sketch-button w-fit rounded-md bg-[#d94a1d] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#bd3d16] disabled:cursor-not-allowed disabled:bg-[#b98a78]"
       >
         {isPending ? "Saving..." : "Save vote"}
       </button>
