@@ -6,6 +6,7 @@ import {
   addSuggestionAction,
   type EventFormState
 } from "@/app/event/[id]/actions";
+import { getAllowedDateRange } from "@/lib/dateLimits";
 
 const initialState: EventFormState = {};
 
@@ -14,6 +15,7 @@ type SuggestionFormProps = {
 };
 
 export function SuggestionForm({ eventId }: SuggestionFormProps) {
+  const dateRange = getAllowedDateRange();
   const [state, formAction, isPending] = useActionState(
     addSuggestionAction,
     initialState
@@ -62,6 +64,8 @@ export function SuggestionForm({ eventId }: SuggestionFormProps) {
             type="date"
             name="date"
             required
+            min={dateRange.min}
+            max={dateRange.max}
             className="focus-orange rounded-md border border-[#e9a68a] bg-white px-3 py-2.5 text-base normal-case tracking-normal text-[#2c160e]"
           />
         </label>

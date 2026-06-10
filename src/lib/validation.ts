@@ -1,4 +1,5 @@
 import type { VoteChoice } from "@/lib/types";
+import { getAllowedDateRange } from "@/lib/dateLimits";
 
 export type ValidationResult<T> =
   | { ok: true; value: T }
@@ -90,6 +91,16 @@ export function validateDate(value: string): ValidationResult<string> {
     parsed.toISOString().slice(0, 10) !== date
   ) {
     return error("Date must be a valid calendar date.");
+  }
+
+  const { min, max } = getAllowedDateRange();
+
+  if (date < min) {
+    return error("Date cannot be in the past.");
+  }
+
+  if (date > max) {
+    return error("1 year is max.");
   }
 
   return ok(date);

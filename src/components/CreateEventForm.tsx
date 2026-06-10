@@ -6,10 +6,12 @@ import {
   createEventAction,
   type CreateEventFormState
 } from "@/app/create/actions";
+import { getAllowedDateRange } from "@/lib/dateLimits";
 
 const initialState: CreateEventFormState = {};
 
 export function CreateEventForm() {
+  const dateRange = getAllowedDateRange();
   const [state, formAction, isPending] = useActionState(
     createEventAction,
     initialState
@@ -71,6 +73,8 @@ export function CreateEventForm() {
             type="date"
             name="suggestedDate"
             required
+            min={dateRange.min}
+            max={dateRange.max}
             className="focus-orange rounded-md border border-[#e9a68a] bg-white px-3 py-2.5 text-base normal-case tracking-normal text-[#2c160e]"
           />
         </label>
