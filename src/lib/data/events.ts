@@ -13,8 +13,11 @@ import type {
 import { getSortedSuggestions } from "@/lib/utils";
 import {
   getValidatedValue,
+  validateDate,
   validateEventDescription,
   validateEventTitle,
+  validateName,
+  validateTime,
   validateUuid
 } from "@/lib/validation";
 
@@ -73,21 +76,42 @@ function throwDataError(action: string, error: unknown): never {
 export async function createEvent(input: {
   title: string;
   description?: string | null;
+  creatorName: string;
+  suggestedDate: string;
+  suggestedTime: string;
 }): Promise<{ id: string }> {
   const title = getValidatedValue(validateEventTitle(input.title));
   const description = getValidatedValue(
     validateEventDescription(input.description)
   );
+  const creatorName = getValidatedValue(validateName(input.creatorName));
+  const suggestedDate = getValidatedValue(validateDate(input.suggestedDate));
+  const suggestedTime = getValidatedValue(validateTime(input.suggestedTime));
+
+  if (!suggestedTime) {
+    throw new Error("Time is required.");
+  }
 
   try {
-    const [createdEvent] = await getDb()
-      .insert(events)
-      .values({ title, description })
-      .returning({ id: events.id });
+    const createdEvent = await getDb().transaction(async (tx) => {
+      const [event] = await tx
+        .insert(events)
+        .values({ title, description })
+        .returning({ id: events.id });
 
-    if (!createdEvent) {
-      throw new Error("No event id returned after insert.");
-    }
+      if (!event) {
+        throw new Error("No event id returned after insert.");
+      }
+
+      await tx.insert(dateSuggestions).values({
+        eventId: event.id,
+        date: suggestedDate,
+        time: suggestedTime,
+        suggestedBy: creatorName
+      });
+
+      return event;
+    });
 
     return createdEvent;
   } catch (error) {

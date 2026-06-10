@@ -52,6 +52,40 @@ export function CreateEventForm() {
         />
       </label>
 
+      <label className="grid gap-2 text-sm font-bold uppercase tracking-[0.08em] text-[#d94a1d]">
+        Your name
+        <input
+          type="text"
+          name="creatorName"
+          required
+          maxLength={80}
+          placeholder="Alex"
+          className="focus-orange rounded-md border border-[#e9a68a] bg-white px-3 py-2.5 text-base normal-case tracking-normal text-[#2c160e]"
+        />
+      </label>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="grid gap-2 text-sm font-bold uppercase tracking-[0.08em] text-[#d94a1d]">
+          Suggested date
+          <input
+            type="date"
+            name="suggestedDate"
+            required
+            className="focus-orange rounded-md border border-[#e9a68a] bg-white px-3 py-2.5 text-base normal-case tracking-normal text-[#2c160e]"
+          />
+        </label>
+
+        <label className="grid gap-2 text-sm font-bold uppercase tracking-[0.08em] text-[#d94a1d]">
+          Suggested time
+          <input
+            type="time"
+            name="suggestedTime"
+            required
+            className="focus-orange rounded-md border border-[#e9a68a] bg-white px-3 py-2.5 text-base normal-case tracking-normal text-[#2c160e]"
+          />
+        </label>
+      </div>
+
       <button
         type="submit"
         disabled={isPending}

@@ -43,6 +43,23 @@ function formatTime(time: string | null): string | null {
   return time ? time.slice(0, 5) : null;
 }
 
+function getCreatorSuggestion(
+  suggestions: NonNullable<Awaited<ReturnType<typeof getEventById>>>["suggestions"]
+) {
+  return suggestions.reduce<(typeof suggestions)[number] | null>(
+    (earliest, suggestion) => {
+      if (!earliest) {
+        return suggestion;
+      }
+
+      return suggestion.created_at.getTime() < earliest.created_at.getTime()
+        ? suggestion
+        : earliest;
+    },
+    null
+  );
+}
+
 export default async function EventPage({ params }: EventPageProps) {
   const { id } = await params;
   const idValidation = validateUuid(id, "Event ID");
@@ -57,6 +74,11 @@ export default async function EventPage({ params }: EventPageProps) {
     notFound();
   }
 
+  const creatorSuggestion = getCreatorSuggestion(event.suggestions);
+  const creatorSuggestionTime = creatorSuggestion
+    ? formatTime(creatorSuggestion.time)
+    : null;
+
   return (
     <section className="mx-auto grid max-w-4xl gap-6 px-5 pb-12 pt-36 sm:px-8 sm:pt-40 lg:pt-32">
       <div className="grid gap-4">
@@ -69,6 +91,13 @@ export default async function EventPage({ params }: EventPageProps) {
         {event.description ? (
           <p className="max-w-2xl whitespace-pre-wrap text-base leading-7 text-[#7d4f3c]">
             {event.description}
+          </p>
+        ) : null}
+        {creatorSuggestion ? (
+          <p className="rounded-md border border-[#e9a68a] bg-[#fff2df] px-4 py-3 text-sm font-bold text-[#9c3f1d]">
+            Creator suggestion from {creatorSuggestion.suggested_by}:{" "}
+            {formatDate(creatorSuggestion.date)}
+            {creatorSuggestionTime ? ` at ${creatorSuggestionTime}` : ""}
           </p>
         ) : null}
       </div>

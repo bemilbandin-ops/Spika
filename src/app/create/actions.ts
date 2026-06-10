@@ -30,7 +30,10 @@ export async function createEventAction(
   try {
     const event = await createEvent({
       title: readString(formData, "title"),
-      description: readString(formData, "description")
+      description: readString(formData, "description"),
+      creatorName: readString(formData, "creatorName"),
+      suggestedDate: readString(formData, "suggestedDate"),
+      suggestedTime: readString(formData, "suggestedTime")
     });
     eventId = event.id;
   } catch (error) {

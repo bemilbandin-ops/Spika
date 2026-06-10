@@ -18,8 +18,8 @@ export default function CreateEventPage() {
           Create an event
         </h1>
         <p className="text-base leading-7 text-[#7d4f3c]">
-          Give your event a title and optional details. You will get a private
-          link to share with the group.
+          Give your event a title, optional details, your name, and the first
+          date and time for the group to consider.
         </p>
       </div>
 
