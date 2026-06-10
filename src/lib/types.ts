@@ -4,7 +4,8 @@ export type EventRecord = {
   id: string;
   title: string;
   description: string | null;
-  created_at: string;
+  created_at: Date;
+  deleted_at: Date | null;
 };
 
 export type DateSuggestionRecord = {
@@ -13,7 +14,7 @@ export type DateSuggestionRecord = {
   date: string;
   time: string | null;
   suggested_by: string;
-  created_at: string;
+  created_at: Date;
 };
 
 export type VoteRecord = {
@@ -21,5 +22,5 @@ export type VoteRecord = {
   suggestion_id: string;
   voter_name: string;
   choice: VoteChoice;
-  created_at: string;
+  created_at: Date;
 };
