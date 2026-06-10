@@ -5,6 +5,7 @@ import { ShareLink } from "@/components/ShareLink";
 import { SuggestionForm } from "@/components/SuggestionForm";
 import { VoteForm } from "@/components/VoteForm";
 import { getEventById } from "@/lib/data/events";
+import { getEventSearchCode } from "@/lib/eventSearch";
 import type { VoteChoice } from "@/lib/types";
 import { getVoteCounts } from "@/lib/utils";
 import { validateUuid } from "@/lib/validation";
@@ -78,6 +79,7 @@ export default async function EventPage({ params }: EventPageProps) {
   const creatorSuggestionTime = creatorSuggestion
     ? formatTime(creatorSuggestion.time)
     : null;
+  const eventSearchCode = getEventSearchCode(event.id);
 
   return (
     <section className="mx-auto grid max-w-4xl gap-6 px-5 pb-12 pt-36 sm:px-8 sm:pt-40 lg:pt-32">
@@ -88,6 +90,9 @@ export default async function EventPage({ params }: EventPageProps) {
         <h1 className="text-4xl font-extrabold tracking-[-0.045em] text-[#d94a1d]">
           {event.title}
         </h1>
+        <p className="w-fit rounded-full border border-[#d94a1d]/40 bg-[#fffaf1]/80 px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.12em] text-[#d94a1d]">
+          Search ID: {eventSearchCode}
+        </p>
         {event.description ? (
           <p className="max-w-2xl whitespace-pre-wrap text-base leading-7 text-[#7d4f3c]">
             {event.description}

@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { SearchEventForm } from "@/components/SearchEventForm";
+
 type DemoPlace = {
   name: string;
   icon: "coffee" | "pizza" | "tree" | "bowling" | "burger";
@@ -94,6 +96,9 @@ export default function HomePage() {
           >
             Plan My Group Date
           </Link>
+          <div className="mt-8">
+            <SearchEventForm />
+          </div>
         </div>
 
         <div className="relative w-full max-w-full justify-self-end overflow-x-auto pb-2 lg:w-[61vw] lg:overflow-visible lg:pb-0">

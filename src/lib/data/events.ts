@@ -1,9 +1,10 @@
 import "server-only";
 
-import { and, desc, eq, inArray, isNull } from "drizzle-orm";
+import { and, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 
 import { getDb } from "@/db";
 import { dateSuggestions, events, votes } from "@/db/schema";
+import { isEventSearchCode } from "@/lib/eventSearch";
 import type {
   DateSuggestionRecord,
   EventRecord,
@@ -71,6 +72,43 @@ function throwDataError(action: string, error: unknown): never {
   });
 
   throw new Error("Something went wrong while saving event data.");
+}
+
+export async function findEventIdBySearchCode(
+  searchCode: string
+): Promise<string | null> {
+  const code = searchCode.trim().toLowerCase();
+
+  if (!isEventSearchCode(code)) {
+    throw new Error("Enter an 8-character event ID.");
+  }
+
+  try {
+    const matches = await getDb()
+      .select({ id: events.id })
+      .from(events)
+      .where(
+        and(
+          sql`left(${events.id}::text, 8) = ${code}`,
+          isNull(events.deletedAt)
+        )
+      )
+      .limit(2);
+
+    if (matches.length > 1) {
+      throw new Error(
+        "Search ID matches more than one event. Please use the full event URL."
+      );
+    }
+
+    return matches[0]?.id ?? null;
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith("Search ID")) {
+      throw error;
+    }
+
+    throwDataError("searching events", error);
+  }
 }
 
 export async function createEvent(input: {
